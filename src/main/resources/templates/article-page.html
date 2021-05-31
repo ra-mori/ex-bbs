@@ -13,7 +13,7 @@
         <h1>掲示板</h1>
         <div class="content">
             <form action="article-page.html" th:action="@{/bbs/add-article}" class="article-form"
-                th:object="${articleForm}">
+                th:object="${articleForm}" method="post">
                 <div class="item1">
                     <h2>記事投稿</h2>
                     <div th:errors="*{name}" class="errors"></div>
@@ -45,15 +45,19 @@
                 <p>コメント者名：<span th:text="*{name}"></span></p>
                 <p>コメント内容：<span th:text="*{content}"></span></p>
             </section>
-            <form action="article-page.html" th:action="@{/bbs/add-comment}">
+            <form action="article-page.html" th:action="@{/bbs/add-comment}" method="post">
                 <h2>コメント投稿</h2>
                 <div>
-                    <div th:errors="${commentForm.name}" class="errors"></div>
+                    表示のArticleId: <span th:text="*{id}"></span>
+                    送ったArticleId: <span th:text="${commentForm.articleId}"></span>
+
+                    <div th:if="*{id} == ${commentForm.articleId}" th:errors="${commentForm.name}" class="errors"></div>
                     <label for="comment-name">名前：</label><br>
                     <input type="text" name="name" id="comment-name" th:field="${commentForm.name}">
                 </div>
                 <div>
-                    <div th:errors="${commentForm.comment}" class="errors"></div>
+                    <div th:if="*{id}==${commentForm.articleId}" th:errors="${commentForm.comment}" class="errors">
+                    </div>
                     <label for="commnt-comment">コメント：</label><br>
                     <textarea name="comment" id="comment-comment" cols="30" rows="10"
                         th:field="${commentForm.comment}"></textarea>
