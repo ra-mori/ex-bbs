@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>掲示板app</title>
+    <link rel="stylesheet" type="text/css" href="./css/demo.css" th:href="@{/css/article.css}">
+</head>
+<body>
+    <div class="wrapper">
+        <!-- post-begin -->
+        <h1>掲示板</h1>
+        <div class="content">
+            <form action="article-page.html" th:action="@{/bbs/add-article}" class="article-form"
+                th:object="${articleForm}">
+                <div class="item1">
+                    <h2>記事投稿</h2>
+                    <div th:errors="*{name}" class="errors"></div>
+                    <label for="article-name">投稿者名：</label>
+                    <input type="text" name="name" id="article-name" th:field="*{name}">
+                </div>
+
+                <div class="item2">
+                    <div th:errors="*{content}" class="errors"></div>
+                    <label for="article-comment">投稿内容：</label>
+                    <textarea name="content" id="article-comment" cols="30" rows="10" th:field="*{content}"></textarea>
+                </div>
+
+                <button>記事投稿</button>
+            </form>
+        </div>
+        <!-- post-end -->
+        <hr>
+        <article th:each="article:${articleList}" th:object="${article}">
+            <!-- article-begin -->
+            <h2>記事内容</h2>
+            <p>投稿者名：<span th:text="*{name}"></span></p>
+            <p>投稿内容：<span th:text="*{content}"></span></p>
+            <a th:href="@{/bbs/remove?id=}+*{id}" class="remove">記事消去</a>
+            <!-- article-end -->
+            <!-- comment-begin -->
+            <h2>コメント欄</h2>
+            <section th:each="comment:*{commentList}" th:object="${comment}">
+                <p>コメント者名：<span th:text="*{name}"></span></p>
+                <p>コメント内容：<span th:text="*{content}"></span></p>
+            </section>
+            <form action="article-page.html" th:action="@{/bbs/add-comment}">
+                <h2>コメント投稿</h2>
+                <div>
+                    <!-- <div th:errors="${commentForm.name}" class="errors">
+                    </div> -->
+                    <span th:text="*{id}"></span>
+                    <span th:text="${commentForm.articleId}"></span>
+                    <div th:each="comment:${commentList}">
+                        <span th:text="${comment.articleId}" class="tht"></span>
+                    </div>
+                    <label for="comment-name">名前：</label><br>
+                    <input type="text" name="name" id="comment-name" th:field="${commentForm.name}" th:id="*{id}">
+                </div>
+                <div>
+                    <!-- th:errors="${commentForm.comment}" class="errors"></div> -->
+                    <label for="commnt-comment">コメント：</label><br>
+                    <textarea name="comment" id="comment-comment" cols="30" rows="10" th:field="${commentForm.comment}"
+                        th:id="*{id}"></textarea>
+                </div>
+                <input type="hidden" name="articleId" id="article-id" th:value="*{id}">
+                <button>コメントの投稿</button>
+            </form>
+            <!-- comment-end -->
+        </article>
+        <hr>
+    </div>
+</body>
+</html>

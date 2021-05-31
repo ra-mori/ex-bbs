@@ -1,0 +1,45 @@
+@charset "utf-8";
+
+.wrapper {
+    max-width: 1000px;
+    margin: 0 auto ;
+}
+
+.content, article {
+    text-align: center;
+}
+
+
+.item2 {
+    margin: 10px;
+}
+
+button {
+	margin-top: 10px;
+}
+
+.remove {
+    text-decoration: none;
+    font-size:0.75em;
+    display:block;
+    width:100px;
+    margin: 0 auto;
+    padding-top:10px;
+    padding-bottom:10px;
+    text-align:center;
+    border:2px solid;
+    border-color:#aaaaaa #444444 #444444 #aaaaaa;
+    background:#cccccc;
+    }
+    
+    .remove:hover{
+    background:#777777;
+    }
+
+    .errors {
+        color: red;
+    }
+
+    .tht {
+        color: red;
+    }

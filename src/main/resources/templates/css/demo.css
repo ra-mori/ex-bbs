@@ -1,0 +1,17 @@
+.wrapper {
+    max-width: 1000px;
+    margin: 0 auto ;
+}
+
+.content, article {
+    text-align: center;
+}
+
+
+.item2 {
+    margin: 10px;
+}
+
+button {
+	margin-top: 10px;
+}
